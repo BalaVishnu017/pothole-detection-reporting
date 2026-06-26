@@ -11,12 +11,11 @@ Session State Keys:
 """
 
 import logging
-from typing import Optional
 
 import bcrypt
 import streamlit as st
 
-from app.database import add_user, get_user, init_db
+from app.database import add_user, get_user
 
 logger = logging.getLogger(__name__)
 
@@ -24,6 +23,7 @@ logger = logging.getLogger(__name__)
 # =============================================================================
 # Password Utilities
 # =============================================================================
+
 
 def hash_password(password: str) -> str:
     """
@@ -60,6 +60,7 @@ def verify_password(password: str, hashed: str) -> bool:
 # =============================================================================
 # Session Management
 # =============================================================================
+
 
 def init_session() -> None:
     """Initialize Streamlit session state keys with safe defaults."""
@@ -138,6 +139,7 @@ def signup(username: str, password: str, email: str = "") -> tuple[bool, str]:
 # =============================================================================
 # Auth UI Renderers
 # =============================================================================
+
 
 def render_login_page() -> None:
     """Render the Login form and handle submission."""

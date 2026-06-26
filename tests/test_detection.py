@@ -5,7 +5,7 @@ Unit tests for severity classification logic and DetectionResult assembly.
 No YOLO model is loaded — we test the pure Python classification functions.
 """
 
-import pytest
+
 from app.detection import (
     Detection,
     DetectionResult,
@@ -13,15 +13,18 @@ from app.detection import (
     classify_severity,
 )
 
-
 # =============================================================================
 # Helper Factory
 # =============================================================================
 
+
 def make_detection(confidence: float = 0.9, area_ratio: float = 0.10) -> Detection:
     """Create a Detection with default dummy bounding box values."""
     return Detection(
-        x=100.0, y=100.0, width=200.0, height=200.0,
+        x=100.0,
+        y=100.0,
+        width=200.0,
+        height=200.0,
         confidence=confidence,
         area_ratio=area_ratio,
     )
@@ -30,6 +33,7 @@ def make_detection(confidence: float = 0.9, area_ratio: float = 0.10) -> Detecti
 # =============================================================================
 # Severity Classification Tests
 # =============================================================================
+
 
 class TestClassifySeverity:
 
@@ -95,6 +99,7 @@ class TestClassifySeverity:
 # DetectionResult Tests
 # =============================================================================
 
+
 class TestDetectionResult:
 
     def test_default_detection_result(self):
@@ -113,6 +118,7 @@ class TestDetectionResult:
 # =============================================================================
 # Severity Enum Tests
 # =============================================================================
+
 
 class TestSeverityEnum:
 

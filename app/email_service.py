@@ -19,10 +19,9 @@ from email.mime.image import MIMEImage
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 from pathlib import Path
-from typing import Optional
 
+from app.detection import SEVERITY_COLORS, SEVERITY_EMOJIS, Severity
 from app.gps_service import Coordinates
-from app.detection import Severity, SEVERITY_COLORS, SEVERITY_EMOJIS
 from config.settings import settings
 
 logger = logging.getLogger(__name__)
@@ -31,6 +30,7 @@ logger = logging.getLogger(__name__)
 # =============================================================================
 # HTML Email Template
 # =============================================================================
+
 
 def _build_html_body(
     coordinates: Coordinates,
@@ -200,6 +200,7 @@ def _build_html_body(
 # Email Sending
 # =============================================================================
 
+
 def send_report(
     evidence_path: str,
     coordinates: Coordinates,
@@ -254,7 +255,9 @@ def send_report(
             smtp.send_message(msg)
         logger.info(
             "Report sent successfully to '%s' [severity=%s, location=%s].",
-            settings.road_dept_email, severity.value, coordinates,
+            settings.road_dept_email,
+            severity.value,
+            coordinates,
         )
         return True, "Report sent successfully."
     except smtplib.SMTPAuthenticationError:

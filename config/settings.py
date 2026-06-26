@@ -10,7 +10,8 @@ Usage:
 """
 
 from pathlib import Path
-from pydantic import EmailStr, Field, field_validator
+
+from pydantic import Field, field_validator
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
@@ -86,6 +87,7 @@ class Settings(BaseSettings):
         """Warn if model file is missing — do not crash at import time."""
         if not Path(v).exists():
             import warnings
+
             warnings.warn(
                 f"Model file not found at '{v}'. "
                 "Download best.pt and place it in the models/ directory.",

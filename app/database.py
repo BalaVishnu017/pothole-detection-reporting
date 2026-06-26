@@ -28,6 +28,7 @@ logger = logging.getLogger(__name__)
 def _get_db_path() -> str:
     """Return the DB path from settings (lazy import to avoid circular deps)."""
     from config.settings import settings
+
     return settings.database_path
 
 
@@ -63,6 +64,7 @@ def get_connection(db_path: Optional[str] = None) -> Generator[sqlite3.Connectio
 # Schema Initialization
 # =============================================================================
 
+
 def init_db(db_path: Optional[str] = None) -> None:
     """
     Create the users table if it does not already exist.
@@ -86,6 +88,7 @@ def init_db(db_path: Optional[str] = None) -> None:
 # =============================================================================
 # User CRUD
 # =============================================================================
+
 
 def add_user(username: str, hashed_password: str, email: str = "") -> bool:
     """

@@ -5,18 +5,18 @@ Unit tests for HTML body generation, report assembly, and error handling.
 SMTP is mocked so no real emails are sent during testing.
 """
 
+from unittest.mock import MagicMock, patch
+
 import pytest
-from unittest.mock import MagicMock, patch, mock_open
-from pathlib import Path
 
 from app.detection import Severity
-from app.gps_service import Coordinates
 from app.email_service import _build_html_body, send_report
-
+from app.gps_service import Coordinates
 
 # =============================================================================
 # Fixtures
 # =============================================================================
+
 
 @pytest.fixture
 def coords():
@@ -34,6 +34,7 @@ def dummy_evidence(tmp_path):
 # =============================================================================
 # HTML Body Tests
 # =============================================================================
+
 
 class TestBuildHtmlBody:
 
@@ -70,6 +71,7 @@ class TestBuildHtmlBody:
 # send_report Tests
 # =============================================================================
 
+
 class TestSendReport:
 
     def test_missing_evidence_file_returns_false(self, coords):
@@ -102,6 +104,7 @@ class TestSendReport:
     @patch("app.email_service.smtplib.SMTP_SSL")
     def test_smtp_auth_error_returns_false(self, mock_smtp_cls, coords, dummy_evidence):
         import smtplib
+
         mock_smtp_cls.return_value.__enter__.side_effect = smtplib.SMTPAuthenticationError(
             535, b"Bad credentials"
         )
@@ -116,7 +119,10 @@ class TestSendReport:
     @patch("app.email_service.smtplib.SMTP_SSL")
     def test_generic_smtp_error_returns_false(self, mock_smtp_cls, coords, dummy_evidence):
         import smtplib
-        mock_smtp_cls.return_value.__enter__.side_effect = smtplib.SMTPException("Connection refused")
+
+        mock_smtp_cls.return_value.__enter__.side_effect = smtplib.SMTPException(
+            "Connection refused"
+        )
         success, msg = send_report(
             evidence_path=dummy_evidence,
             coordinates=coords,
@@ -128,6 +134,7 @@ class TestSendReport:
 # =============================================================================
 # Coordinates Tests
 # =============================================================================
+
 
 class TestCoordinates:
 

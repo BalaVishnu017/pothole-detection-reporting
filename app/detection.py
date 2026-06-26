@@ -11,7 +11,6 @@ Provides:
 """
 
 import logging
-import os
 from dataclasses import dataclass, field
 from enum import Enum
 from pathlib import Path
@@ -28,8 +27,10 @@ logger = logging.getLogger(__name__)
 # Enumerations & Data Classes
 # =============================================================================
 
+
 class Severity(str, Enum):
     """Pothole severity classification levels."""
+
     NONE = "None"
     LOW = "Low"
     MEDIUM = "Medium"
@@ -39,11 +40,11 @@ class Severity(str, Enum):
 
 # Colour associated with each severity level (for UI rendering)
 SEVERITY_COLORS: dict[Severity, str] = {
-    Severity.NONE: "#4caf50",       # green
-    Severity.LOW: "#8bc34a",        # light green
-    Severity.MEDIUM: "#ff9800",     # amber
-    Severity.HIGH: "#f44336",       # red
-    Severity.CRITICAL: "#b71c1c",   # deep red
+    Severity.NONE: "#4caf50",  # green
+    Severity.LOW: "#8bc34a",  # light green
+    Severity.MEDIUM: "#ff9800",  # amber
+    Severity.HIGH: "#f44336",  # red
+    Severity.CRITICAL: "#b71c1c",  # deep red
 }
 
 SEVERITY_EMOJIS: dict[Severity, str] = {
@@ -58,6 +59,7 @@ SEVERITY_EMOJIS: dict[Severity, str] = {
 @dataclass
 class Detection:
     """Represents a single detected pothole."""
+
     x: float
     y: float
     width: float
@@ -73,6 +75,7 @@ class Detection:
 @dataclass
 class DetectionResult:
     """Aggregated result of running detection on one image/frame."""
+
     detections: list[Detection] = field(default_factory=list)
     annotated_image: Optional[np.ndarray] = None
     severity: Severity = Severity.NONE
@@ -84,6 +87,7 @@ class DetectionResult:
 # =============================================================================
 # Model Loading
 # =============================================================================
+
 
 @st.cache_resource(show_spinner="Loading AI model…")
 def load_model(model_path: str = "models/best.pt"):
@@ -119,6 +123,7 @@ def load_model(model_path: str = "models/best.pt"):
 # =============================================================================
 # Severity Classification
 # =============================================================================
+
 
 def classify_severity(detections: list[Detection], conf_threshold: float = 0.5) -> Severity:
     """
@@ -159,6 +164,7 @@ def classify_severity(detections: list[Detection], conf_threshold: float = 0.5) 
 # =============================================================================
 # Detection Functions
 # =============================================================================
+
 
 def detect_image(
     model,
@@ -262,7 +268,9 @@ def detect_video(
                 cv2.imwrite(evidence_path, result.annotated_image)
                 logger.info(
                     "Evidence frame saved at frame %d/%d → '%s'.",
-                    frame_count, total_frames, evidence_path,
+                    frame_count,
+                    total_frames,
+                    evidence_path,
                 )
     finally:
         cap.release()
@@ -272,6 +280,7 @@ def detect_video(
 
     logger.info(
         "Video analysis complete: %d frames, max severity=%s.",
-        frame_count, best_result.severity,
+        frame_count,
+        best_result.severity,
     )
     return best_result, evidence_path

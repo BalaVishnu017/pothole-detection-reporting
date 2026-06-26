@@ -6,13 +6,14 @@ All components are stateless functions — they render markup and return values.
 """
 
 import streamlit as st
-from app.detection import Severity, SEVERITY_COLORS, SEVERITY_EMOJIS, DetectionResult
-from app.gps_service import Coordinates
 
+from app.detection import SEVERITY_COLORS, SEVERITY_EMOJIS, DetectionResult
+from app.gps_service import Coordinates
 
 # =============================================================================
 # Page Header
 # =============================================================================
+
 
 def render_header() -> None:
     """Render the animated app header with logo and tagline."""
@@ -33,6 +34,7 @@ def render_header() -> None:
 # =============================================================================
 # Sidebar
 # =============================================================================
+
 
 def render_sidebar(username: str, role: str) -> None:
     """
@@ -68,6 +70,7 @@ def render_sidebar(username: str, role: str) -> None:
         st.markdown("---")
         if st.button("🚪 Logout", use_container_width=True, key="logout_btn"):
             from app.auth import logout
+
             logout()
 
     return confidence
@@ -76,6 +79,7 @@ def render_sidebar(username: str, role: str) -> None:
 # =============================================================================
 # Metrics Panel
 # =============================================================================
+
 
 def render_metrics_panel(result: DetectionResult) -> None:
     """
@@ -118,6 +122,7 @@ def render_metrics_panel(result: DetectionResult) -> None:
 # Detection Result Card
 # =============================================================================
 
+
 def render_detection_result(result: DetectionResult, coordinates: Coordinates) -> None:
     """
     Render a full detection result card with image, metrics, and map link.
@@ -151,6 +156,7 @@ def render_detection_result(result: DetectionResult, coordinates: Coordinates) -
 # Status Alerts
 # =============================================================================
 
+
 def render_report_status(success: bool, message: str) -> None:
     """Show a success or error banner for email report status."""
     if success:
@@ -178,6 +184,7 @@ def render_report_status(success: bool, message: str) -> None:
 # =============================================================================
 # Info Banner
 # =============================================================================
+
 
 def render_welcome_banner(username: str) -> None:
     """Render a personalised welcome banner after login."""

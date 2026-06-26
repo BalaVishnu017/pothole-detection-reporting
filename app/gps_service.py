@@ -19,9 +19,11 @@ logger = logging.getLogger(__name__)
 # Data Classes
 # =============================================================================
 
+
 @dataclass
 class Coordinates:
     """Represents a GPS location."""
+
     latitude: float
     longitude: float
     place_name: Optional[str] = None
@@ -34,8 +36,7 @@ class Coordinates:
     def to_google_maps_url(self) -> str:
         """Return a clickable Google Maps search URL for these coordinates."""
         return (
-            f"https://www.google.com/maps/search/?api=1"
-            f"&query={self.latitude},{self.longitude}"
+            f"https://www.google.com/maps/search/?api=1" f"&query={self.latitude},{self.longitude}"
         )
 
     def to_dict(self) -> dict:
@@ -46,16 +47,20 @@ class Coordinates:
 # GPS Functions
 # =============================================================================
 
+
 def get_default_coordinates() -> Coordinates:
     """Return the default fallback coordinates from settings."""
     from config.settings import settings
+
     return Coordinates(
         latitude=settings.default_latitude,
         longitude=settings.default_longitude,
     )
 
 
-def parse_coordinates(lat_str: str, lon_str: str, place_name: Optional[str] = None) -> Optional[Coordinates]:
+def parse_coordinates(
+    lat_str: str, lon_str: str, place_name: Optional[str] = None
+) -> Optional[Coordinates]:
     """
     Parse latitude/longitude strings into a Coordinates object.
 

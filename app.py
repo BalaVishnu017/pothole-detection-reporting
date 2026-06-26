@@ -39,24 +39,24 @@ if _css_path.exists():
 
 
 # ── Application Imports ────────────────────────────────────────────────────
-from app.auth import init_session, render_login_page, render_signup_page, logout
-from app.database import init_db
-from app.detection import load_model, detect_image, detect_video, Severity
-from app.email_service import send_report
-from app.gps_service import get_default_coordinates, Coordinates
-from app.ui_components import (
-    render_header,
-    render_sidebar,
+from app.auth import init_session, render_login_page, render_signup_page  # noqa: E402
+from app.database import init_db  # noqa: E402
+from app.detection import Severity, detect_image, detect_video, load_model  # noqa: E402
+from app.email_service import send_report  # noqa: E402
+from app.gps_service import get_default_coordinates  # noqa: E402
+from app.ui_components import (  # noqa: E402
     render_detection_result,
+    render_header,
     render_report_status,
+    render_sidebar,
     render_welcome_banner,
 )
-from config.settings import settings
-
+from config.settings import settings  # noqa: E402
 
 # =============================================================================
 # Detection Interface (shown when logged in)
 # =============================================================================
+
 
 def pothole_detection_interface() -> None:
     """Render the main pothole detection dashboard."""
@@ -87,7 +87,7 @@ def pothole_detection_interface() -> None:
         "Location Mode",
         ["Use Default Location", "Enter Manually"],
         horizontal=True,
-        label_visibility="collapsed"
+        label_visibility="collapsed",
     )
 
     current_coords = get_default_coordinates()
@@ -102,7 +102,10 @@ def pothole_detection_interface() -> None:
             place_input = st.text_input("Place Name (Optional)", value="")
 
         from app.gps_service import parse_coordinates
-        parsed_coords = parse_coordinates(lat_input, lon_input, place_input if place_input else None)
+
+        parsed_coords = parse_coordinates(
+            lat_input, lon_input, place_input if place_input else None
+        )
         if parsed_coords:
             current_coords = parsed_coords
         else:
@@ -135,6 +138,7 @@ def pothole_detection_interface() -> None:
             if st.button("🔍 Analyze Image", key="analyze_image_btn", use_container_width=True):
                 file_bytes = np.asarray(bytearray(uploaded_file.read()), dtype=np.uint8)
                 import cv2
+
                 img = cv2.imdecode(file_bytes, cv2.IMREAD_COLOR)
 
                 with st.spinner("Running AI detection…"):
@@ -148,12 +152,14 @@ def pothole_detection_interface() -> None:
                 render_detection_result(result, current_coords)
 
                 if result.total_potholes > 0 and result.severity in (
-                    Severity.HIGH, Severity.CRITICAL
+                    Severity.HIGH,
+                    Severity.CRITICAL,
                 ):
                     # Save evidence
                     Path("outputs").mkdir(exist_ok=True)
                     evidence_path = "outputs/evidence_image.jpg"
                     import cv2
+
                     cv2.imwrite(evidence_path, result.annotated_image)
 
                     st.warning(
@@ -171,6 +177,7 @@ def pothole_detection_interface() -> None:
                     # Update report count in DB
                     if success:
                         from app.database import increment_report_count
+
                         increment_report_count(st.session_state["username"])
 
     # ────────────────────────────────────────────────────────────────────────
@@ -229,6 +236,7 @@ def pothole_detection_interface() -> None:
 
                     if success:
                         from app.database import increment_report_count
+
                         increment_report_count(st.session_state["username"])
                 elif best_result.total_potholes == 0:
                     st.success("✅ Video analysis complete. No critical defects detected.")
@@ -249,6 +257,7 @@ def pothole_detection_interface() -> None:
 # Authentication Flow
 # =============================================================================
 
+
 def auth_interface() -> None:
     """Render the login / sign-up interface."""
     render_header()
@@ -266,6 +275,7 @@ def auth_interface() -> None:
 # =============================================================================
 # Entry Point
 # =============================================================================
+
 
 def main() -> None:
     """Main application entry point."""

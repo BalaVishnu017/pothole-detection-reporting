@@ -4,13 +4,13 @@ Tests — GPS Service Module
 Unit tests for coordinate parsing, validation, and route summary.
 """
 
-import pytest
 import pandas as pd
+import pytest
 
 from app.gps_service import (
     Coordinates,
-    parse_coordinates,
     get_route_summary,
+    parse_coordinates,
 )
 
 

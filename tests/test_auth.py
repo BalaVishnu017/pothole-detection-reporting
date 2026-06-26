@@ -5,18 +5,16 @@ Unit tests for password hashing, verification, and user management.
 All database operations are run against a temporary in-memory SQLite DB.
 """
 
+
 import pytest
-import sqlite3
-import tempfile
-import os
 
-from app.auth import hash_password, verify_password, signup, login
-from app.database import init_db, add_user, get_user
-
+from app.auth import hash_password, signup, verify_password
+from app.database import add_user, get_user, init_db
 
 # =============================================================================
 # Fixtures
 # =============================================================================
+
 
 @pytest.fixture(autouse=True)
 def tmp_db(tmp_path, monkeypatch):
@@ -28,6 +26,7 @@ def tmp_db(tmp_path, monkeypatch):
 
     # Patch settings to use the temp DB path
     import config.settings as cfg_module
+
     monkeypatch.setattr(cfg_module.settings, "database_path", db_file)
 
     # Bootstrap the schema
@@ -38,6 +37,7 @@ def tmp_db(tmp_path, monkeypatch):
 # =============================================================================
 # Password Hashing Tests
 # =============================================================================
+
 
 class TestPasswordHashing:
 
@@ -73,6 +73,7 @@ class TestPasswordHashing:
 # Signup Tests
 # =============================================================================
 
+
 class TestSignup:
 
     def test_signup_success(self):
@@ -106,6 +107,7 @@ class TestSignup:
 # =============================================================================
 # Database Tests
 # =============================================================================
+
 
 class TestDatabase:
 

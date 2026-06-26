@@ -5,26 +5,28 @@ Usage: python scripts/test_email_diagnostic.py
 """
 
 import os
-import sys
 import smtplib
-from pathlib import Path
+import sys
 
 # Load .env
 try:
     from dotenv import load_dotenv
+
     load_dotenv()
     print("[OK]  python-dotenv loaded .env file")
 except ImportError:
     print("[WARN] python-dotenv not installed. Reading raw env vars only.")
 
 # ── Read config ────────────────────────────────────────────────────────────
-SENDER_EMAIL    = os.getenv("SENDER_EMAIL", "")
+SENDER_EMAIL = os.getenv("SENDER_EMAIL", "")
 SENDER_PASSWORD = os.getenv("SENDER_PASSWORD", "")
 ROAD_DEPT_EMAIL = os.getenv("ROAD_DEPT_EMAIL", "")
 
 print("\n=== Environment Variable Status ===")
 print(f"  SENDER_EMAIL    : {SENDER_EMAIL or 'NOT SET'}")
-print(f"  SENDER_PASSWORD : {'*' * len(SENDER_PASSWORD) + f' ({len(SENDER_PASSWORD)} chars)' if SENDER_PASSWORD else 'NOT SET'}")
+print(
+    f"  SENDER_PASSWORD : {'*' * len(SENDER_PASSWORD) + f' ({len(SENDER_PASSWORD)} chars)' if SENDER_PASSWORD else 'NOT SET'}"
+)
 print(f"  ROAD_DEPT_EMAIL : {ROAD_DEPT_EMAIL or 'NOT SET'}")
 
 # ── Validate ───────────────────────────────────────────────────────────────
@@ -34,7 +36,9 @@ if not SENDER_EMAIL:
 if not SENDER_PASSWORD:
     errors.append("SENDER_PASSWORD is empty")
 if len(SENDER_PASSWORD.replace(" ", "")) not in (16, 0):
-    errors.append(f"SENDER_PASSWORD has {len(SENDER_PASSWORD.replace(' ', ''))} chars — expected 16")
+    errors.append(
+        f"SENDER_PASSWORD has {len(SENDER_PASSWORD.replace(' ', ''))} chars — expected 16"
+    )
 if not ROAD_DEPT_EMAIL:
     errors.append("ROAD_DEPT_EMAIL is empty")
 
@@ -49,7 +53,7 @@ print("\n[OK]  All environment variables are set.")
 
 # ── Test SMTP connection ───────────────────────────────────────────────────
 print("\n=== SMTP Connection Test ===")
-print(f"  Connecting to smtp.gmail.com:465 ...")
+print("  Connecting to smtp.gmail.com:465 ...")
 
 try:
     with smtplib.SMTP_SSL("smtp.gmail.com", 465, timeout=15) as smtp:
@@ -76,13 +80,13 @@ except Exception as e:
 # ── Send test email ────────────────────────────────────────────────────────
 print(f"\n=== Sending Test Email to: {ROAD_DEPT_EMAIL} ===")
 
-from email.mime.multipart import MIMEMultipart
-from email.mime.text import MIMEText
+from email.mime.multipart import MIMEMultipart  # noqa: E402
+from email.mime.text import MIMEText  # noqa: E402
 
 msg = MIMEMultipart("alternative")
 msg["Subject"] = "InfraVision AI — Test Email (Diagnostic)"
-msg["From"]    = SENDER_EMAIL
-msg["To"]      = ROAD_DEPT_EMAIL
+msg["From"] = SENDER_EMAIL
+msg["To"] = ROAD_DEPT_EMAIL
 
 html = f"""
 <html><body style="font-family:Arial,sans-serif;background:#f5f7fa;padding:20px;">
@@ -105,7 +109,7 @@ try:
     with smtplib.SMTP_SSL("smtp.gmail.com", 465, timeout=15) as smtp:
         smtp.login(SENDER_EMAIL, SENDER_PASSWORD.replace(" ", ""))
         smtp.send_message(msg)
-    print(f"  [OK]  Test email sent successfully!")
+    print("  [OK]  Test email sent successfully!")
     print(f"\n  Check inbox: {ROAD_DEPT_EMAIL}")
     print("  Also check Spam/Junk folder if not in inbox.")
 except Exception as e:
