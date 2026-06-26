@@ -1,0 +1,3 @@
+"""
+InfraVision AI — app package
+"""

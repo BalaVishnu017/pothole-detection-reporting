@@ -1,0 +1,88 @@
+# =============================================================================
+# InfraVision AI — .gitignore
+# =============================================================================
+
+# --- Environment & Secrets ---
+.env
+.env.local
+.env.*.local
+*.secret
+
+# --- Python ---
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+*.egg
+*.egg-info/
+dist/
+build/
+.eggs/
+*.whl
+.Python
+
+# --- Virtual Environments ---
+.venv/
+venv/
+ENV/
+env/
+.virtualenv/
+
+# --- Testing & Coverage ---
+.pytest_cache/
+.coverage
+htmlcov/
+*.coverage
+coverage.xml
+nosetests.xml
+
+# --- IDE & Editor ---
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+
+# --- Jupyter ---
+.ipynb_checkpoints/
+*.ipynb
+
+# --- Model Weights (large binary files — host on GitHub Releases or Drive) ---
+models/*.pt
+models/*.pth
+models/*.weights
+models/*.onnx
+!models/.gitkeep
+
+# --- Data & Outputs (generated at runtime) ---
+data/*.db
+data/*.csv
+data/*.json
+!data/.gitkeep
+outputs/
+!outputs/.gitkeep
+
+# --- Temporary Files ---
+*.tmp
+*.log
+*.bak
+*.orig
+tmp/
+temp/
+
+# --- OpenCV / Video Artifacts ---
+*.mp4
+*.avi
+*.mov
+*.mkv
+evidence.jpg
+video_frame_evidence.jpg
+output_evidence.mp4
+
+# --- Streamlit Cache ---
+.streamlit/
+
+# --- Misc ---
+*.DS_Store

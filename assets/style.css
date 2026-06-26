@@ -1,0 +1,376 @@
+/* =============================================================================
+   InfraVision AI — Premium Dark Glassmorphism Theme
+   =============================================================================
+   Typography: Inter (Google Fonts)
+   Palette:
+     --bg-primary:   #0a0f1e  (deep navy)
+     --bg-surface:   #111827  (card background)
+     --bg-glass:     rgba(255,255,255,0.05)
+     --accent-blue:  #3b82f6  (electric blue)
+     --accent-amber: #f59e0b  (amber warning)
+     --accent-red:   #ef4444  (critical red)
+     --text-primary: #e2e8f0
+     --text-muted:   #94a3b8
+   ============================================================================= */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+/* ── Global Reset ─────────────────────────────────────────────────────────── */
+html, body, [class*="css"] {
+    font-family: 'Inter', sans-serif !important;
+    background-color: #0a0f1e !important;
+    color: #e2e8f0 !important;
+}
+
+/* ── Animated Background ──────────────────────────────────────────────────── */
+.stApp {
+    background: radial-gradient(ellipse at 20% 20%, #1e3a5f22 0%, transparent 60%),
+                radial-gradient(ellipse at 80% 80%, #1e1b4b22 0%, transparent 60%),
+                linear-gradient(180deg, #0a0f1e 0%, #0d1526 100%) !important;
+    background-attachment: fixed !important;
+}
+
+/* ── App Header ───────────────────────────────────────────────────────────── */
+.app-header {
+    text-align: center;
+    padding: 48px 0 32px;
+    animation: fadeInDown 0.6s ease-out;
+}
+
+.header-icon {
+    font-size: 56px;
+    filter: drop-shadow(0 0 20px #3b82f6aa);
+    animation: pulse-glow 3s infinite;
+}
+
+.header-title {
+    font-size: 42px !important;
+    font-weight: 800 !important;
+    background: linear-gradient(135deg, #60a5fa 0%, #3b82f6 50%, #8b5cf6 100%);
+    -webkit-background-clip: text !important;
+    -webkit-text-fill-color: transparent !important;
+    background-clip: text !important;
+    margin: 12px 0 8px !important;
+    letter-spacing: -0.5px;
+}
+
+.header-tagline {
+    color: #94a3b8;
+    font-size: 16px;
+    font-weight: 400;
+    margin: 0;
+}
+
+/* ── Animations ───────────────────────────────────────────────────────────── */
+@keyframes fadeInDown {
+    from { opacity: 0; transform: translateY(-20px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes pulse-glow {
+    0%, 100% { filter: drop-shadow(0 0 12px #3b82f688); }
+    50%       { filter: drop-shadow(0 0 28px #3b82f6cc); }
+}
+
+@keyframes shimmer {
+    0%   { background-position: -200% center; }
+    100% { background-position:  200% center; }
+}
+
+/* ── Cards & Glass Panels ────────────────────────────────────────────────── */
+.glass-card {
+    background: rgba(255, 255, 255, 0.04);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 16px;
+    padding: 24px;
+    margin: 16px 0;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.glass-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 40px rgba(59, 130, 246, 0.15);
+}
+
+/* ── Welcome Banner ───────────────────────────────────────────────────────── */
+.welcome-banner {
+    background: linear-gradient(135deg, rgba(59,130,246,0.12) 0%, rgba(139,92,246,0.08) 100%);
+    border: 1px solid rgba(59,130,246,0.25);
+    border-radius: 16px;
+    padding: 28px 32px;
+    margin-bottom: 24px;
+    animation: fadeInUp 0.5s ease-out;
+}
+
+.welcome-banner h2 {
+    margin: 0 0 8px !important;
+    font-size: 26px !important;
+    font-weight: 700 !important;
+    color: #e2e8f0 !important;
+}
+
+.welcome-banner p {
+    margin: 0 !important;
+    color: #94a3b8 !important;
+    font-size: 15px !important;
+}
+
+/* ── Sidebar ──────────────────────────────────────────────────────────────── */
+[data-testid="stSidebar"] {
+    background: linear-gradient(180deg, #0d1526 0%, #111827 100%) !important;
+    border-right: 1px solid rgba(255,255,255,0.06) !important;
+}
+
+[data-testid="stSidebar"] .sidebar-user-card {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: rgba(59,130,246,0.1);
+    border: 1px solid rgba(59,130,246,0.2);
+    border-radius: 12px;
+    padding: 16px;
+    margin-bottom: 8px;
+}
+
+.user-avatar {
+    font-size: 32px;
+    flex-shrink: 0;
+}
+
+.user-name {
+    font-weight: 700 !important;
+    font-size: 15px !important;
+    color: #e2e8f0 !important;
+    margin: 0 !important;
+}
+
+.user-role {
+    font-size: 11px !important;
+    color: #3b82f6 !important;
+    letter-spacing: 1.5px !important;
+    font-weight: 600 !important;
+    margin: 2px 0 0 !important;
+}
+
+/* ── Buttons ──────────────────────────────────────────────────────────────── */
+.stButton > button {
+    background: linear-gradient(135deg, #2563eb 0%, #3b82f6 100%) !important;
+    color: #ffffff !important;
+    border: none !important;
+    border-radius: 10px !important;
+    font-weight: 600 !important;
+    font-size: 14px !important;
+    padding: 10px 24px !important;
+    transition: all 0.25s ease !important;
+    box-shadow: 0 4px 15px rgba(59,130,246,0.3) !important;
+}
+
+.stButton > button:hover {
+    transform: translateY(-1px) !important;
+    box-shadow: 0 8px 25px rgba(59,130,246,0.5) !important;
+    background: linear-gradient(135deg, #1d4ed8 0%, #2563eb 100%) !important;
+}
+
+.stButton > button:active {
+    transform: translateY(0) !important;
+}
+
+/* Logout button — distinct style */
+button[data-testid*="logout"] {
+    background: rgba(239,68,68,0.15) !important;
+    color: #ef4444 !important;
+    border: 1px solid rgba(239,68,68,0.3) !important;
+    box-shadow: none !important;
+}
+
+button[data-testid*="logout"]:hover {
+    background: rgba(239,68,68,0.3) !important;
+    box-shadow: 0 4px 15px rgba(239,68,68,0.25) !important;
+}
+
+/* ── Inputs & Forms ───────────────────────────────────────────────────────── */
+.stTextInput > div > div > input,
+.stTextArea > div > div > textarea {
+    background: rgba(255,255,255,0.04) !important;
+    border: 1px solid rgba(255,255,255,0.12) !important;
+    border-radius: 10px !important;
+    color: #e2e8f0 !important;
+    font-size: 14px !important;
+    padding: 12px 16px !important;
+    transition: border-color 0.2s ease !important;
+}
+
+.stTextInput > div > div > input:focus,
+.stTextArea > div > div > textarea:focus {
+    border-color: #3b82f6 !important;
+    box-shadow: 0 0 0 3px rgba(59,130,246,0.15) !important;
+}
+
+/* ── File Uploader ────────────────────────────────────────────────────────── */
+[data-testid="stFileUploader"] {
+    background: rgba(255,255,255,0.03) !important;
+    border: 2px dashed rgba(59,130,246,0.3) !important;
+    border-radius: 16px !important;
+    transition: all 0.25s ease !important;
+}
+
+[data-testid="stFileUploader"]:hover {
+    border-color: rgba(59,130,246,0.6) !important;
+    background: rgba(59,130,246,0.05) !important;
+}
+
+/* ── Tabs ─────────────────────────────────────────────────────────────────── */
+.stTabs [data-baseweb="tab-list"] {
+    background: rgba(255,255,255,0.03) !important;
+    border-radius: 10px !important;
+    padding: 4px !important;
+    gap: 4px !important;
+}
+
+.stTabs [data-baseweb="tab"] {
+    border-radius: 8px !important;
+    color: #94a3b8 !important;
+    font-weight: 500 !important;
+    transition: all 0.2s ease !important;
+}
+
+.stTabs [aria-selected="true"] {
+    background: linear-gradient(135deg, #2563eb, #3b82f6) !important;
+    color: #ffffff !important;
+}
+
+/* ── Metric Cards ─────────────────────────────────────────────────────────── */
+[data-testid="stMetric"] {
+    background: rgba(255,255,255,0.04) !important;
+    border: 1px solid rgba(255,255,255,0.08) !important;
+    border-radius: 12px !important;
+    padding: 16px !important;
+}
+
+[data-testid="stMetricValue"] {
+    color: #60a5fa !important;
+    font-size: 24px !important;
+    font-weight: 700 !important;
+}
+
+[data-testid="stMetricLabel"] {
+    color: #94a3b8 !important;
+    font-size: 12px !important;
+    font-weight: 500 !important;
+    letter-spacing: 0.5px !important;
+}
+
+/* ── Alerts ───────────────────────────────────────────────────────────────── */
+.alert-success {
+    background: rgba(34,197,94,0.1);
+    border: 1px solid rgba(34,197,94,0.3);
+    border-radius: 12px;
+    padding: 16px 20px;
+    color: #86efac;
+    margin: 12px 0;
+}
+
+.alert-error {
+    background: rgba(239,68,68,0.1);
+    border: 1px solid rgba(239,68,68,0.3);
+    border-radius: 12px;
+    padding: 16px 20px;
+    color: #fca5a5;
+    margin: 12px 0;
+}
+
+/* ── Result Cards ─────────────────────────────────────────────────────────── */
+.result-card {
+    border-radius: 14px;
+    padding: 20px 24px;
+    margin: 16px 0;
+}
+
+.result-card h3 {
+    margin: 0 0 12px !important;
+    font-size: 16px !important;
+    font-weight: 600 !important;
+}
+
+.result-card p {
+    margin: 6px 0 !important;
+    font-size: 14px !important;
+    color: #cbd5e1 !important;
+}
+
+.result-danger {
+    background: rgba(239,68,68,0.08);
+    border: 1px solid rgba(239,68,68,0.2);
+}
+
+.maps-link {
+    display: inline-block;
+    background: rgba(59,130,246,0.15);
+    color: #60a5fa !important;
+    text-decoration: none !important;
+    border: 1px solid rgba(59,130,246,0.3);
+    border-radius: 8px;
+    padding: 8px 16px;
+    font-size: 13px;
+    font-weight: 500;
+    margin-top: 12px;
+    transition: all 0.2s ease;
+}
+
+.maps-link:hover {
+    background: rgba(59,130,246,0.25) !important;
+    transform: translateY(-1px);
+}
+
+/* ── Selectbox & Radio ────────────────────────────────────────────────────── */
+.stSelectbox > div > div,
+.stRadio > div {
+    color: #e2e8f0 !important;
+}
+
+/* ── Slider ───────────────────────────────────────────────────────────────── */
+.stSlider [data-baseweb="slider"] div[role="slider"] {
+    background: #3b82f6 !important;
+    border-color: #3b82f6 !important;
+}
+
+/* ── Divider ──────────────────────────────────────────────────────────────── */
+hr {
+    border-color: rgba(255,255,255,0.08) !important;
+    margin: 20px 0 !important;
+}
+
+/* ── Auth Page ────────────────────────────────────────────────────────────── */
+.auth-container {
+    max-width: 440px;
+    margin: 0 auto;
+    padding: 40px;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 20px;
+    backdrop-filter: blur(20px);
+    animation: fadeInUp 0.6s ease-out;
+}
+
+/* ── Scrollbar ────────────────────────────────────────────────────────────── */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: #0a0f1e; }
+::-webkit-scrollbar-thumb {
+    background: rgba(59,130,246,0.4);
+    border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: rgba(59,130,246,0.7);
+}
+
+/* ── Spinner ──────────────────────────────────────────────────────────────── */
+.stSpinner > div > div {
+    border-color: #3b82f6 transparent transparent transparent !important;
+}
