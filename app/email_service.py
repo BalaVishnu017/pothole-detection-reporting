@@ -240,7 +240,7 @@ def send_report(
     try:
         with open(evidence_path, "rb") as img_file:
             image_data = img_file.read()
-        mime_image = MIMEImage(image_data, name="pothole_evidence.jpg")
+        mime_image = MIMEImage(image_data, _subtype="jpeg", name="pothole_evidence.jpg")
         mime_image.add_header("Content-Disposition", "attachment", filename="pothole_evidence.jpg")
         msg.attach(mime_image)
     except OSError as exc:
