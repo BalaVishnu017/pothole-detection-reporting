@@ -5,7 +5,6 @@ Unit tests for severity classification logic and DetectionResult assembly.
 No YOLO model is loaded — we test the pure Python classification functions.
 """
 
-
 from app.detection import (
     Detection,
     DetectionResult,

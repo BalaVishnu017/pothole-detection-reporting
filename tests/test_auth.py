@@ -5,7 +5,6 @@ Unit tests for password hashing, verification, and user management.
 All database operations are run against a temporary in-memory SQLite DB.
 """
 
-
 import pytest
 
 from app.auth import hash_password, signup, verify_password
